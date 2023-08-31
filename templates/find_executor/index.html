@@ -1,0 +1,54 @@
+{% extends "_layout.html" %}
+
+{% block title %}
+Найти исполнителя
+{% endblock title %}
+
+{% block content %}
+
+
+
+<nav class="navbar navbar-expand-sm navbar-light mt-3 mb-5">
+    <div class="container">
+        <span class="navbar-brand">Сортировать по:</span>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#sortNavigator"
+            aria-controls="sortNavigator" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="sortNavigator">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">по рейтингу</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">по количеству заказов</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">по специализации</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="col-sm-4">
+    <div class="card">
+        <div class="image">
+            <img
+                src="https://n1s2.hsmedia.ru/b1/e5/26/b1e526cc56fe565303c60657f53226ae/480x497_0xac120003_2439770871554579299.jpg">
+            <div class="card-inner">
+                <div class="header">
+                    <h2>Джамшут</h2>
+                    <h3>супер-резин</h3>
+                </div>
+                <div class="content">
+                    <p>#хэштэг1 #хэштэг1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
