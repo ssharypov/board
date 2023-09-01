@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "main_page",
     "find_executor",
-    # "find_order",
+    "find_order",
     "create_order",
 ]
 
