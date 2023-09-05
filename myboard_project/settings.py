@@ -77,7 +77,8 @@ WSGI_APPLICATION = "myboard_project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# MYSQL
+# https://www.digitalocean.com/community/tutorials/how-to-use-mysql-or-mariadb-with-your-django-application-on-ubuntu-14-04
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
