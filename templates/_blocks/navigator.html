@@ -8,19 +8,19 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav me-auto mb-2">
                 <li class="nav-item">
-                    <a href="find-executor"
-                        class="nav-link{% if request.path == '/find-executor' %} active{% endif %}">Найти
+                    <a href="/specialists"
+                        class="nav-link{% if request.path == '/specialists' %} active{% endif %}">Найти
                         исполнителя</a>
                 </li>
                 <li class="nav-item">
-                    <a href="find-order" class="nav-link{% if request.path == '/find-order' %} active{% endif %}">Найти
+                    <a href="/orders" class="nav-link{% if request.path == '/orders' %} active{% endif %}">Найти
                         заказы</a>
                 </li>
             </ul>
             <ul class="navbar-nav mb-2">
                 <li class="nav-item">
-                    <a href="create-order"
-                        class="nav-link{% if request.path == '/create-order' %} active{% endif %}">Оставить
+                    <a href="/orders/new"
+                        class="nav-link{% if request.path == '/orders/new' %} active{% endif %}">Оставить
                         заявку на ремонт</a>
                 </li>
             </ul>

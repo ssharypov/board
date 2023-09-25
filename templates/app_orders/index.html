@@ -1,0 +1,16 @@
+{% extends "_layout.html" %}
+
+{% block title %}
+Поиск заказов
+{% endblock title %}
+
+{% block content %}
+
+
+<p>Список заказов</p>
+
+{% for order in orders %}
+<p>{{ order.order_description }}</p>
+{% endfor %}
+
+{% endblock content %}
