@@ -17,22 +17,22 @@
     Бот отправит код авторизации, после которого вы сможете подать заявку.
 </p>
 
-<div class="text-center mb-5">
-    <input type="text" name="validation-code" id="validation-code" class="form-control w-25 m-auto text-center"
-        placeholder="Введите код">
-    </textarea>
-</div>
-
 <h6>Шаг 2: Максимально опишите ваши пожелания.</h6>
 
-<form action="#" class="mt-3">
+<form class="mt-3" method="post">
+    {% csrf_token %}
     <div class="mb-3">
-        <label for="job-description" class="form-label mb-2">Описание работы:</label>
-        <textarea name="desc" id="job-description" cols="30" rows="10" class="form-control"
-            placeholder="Чтобы подать заявку выполните первый шаг." <!--disabled--></textarea>
+        {{ form.order_description }}
     </div>
-
-    <button type="submit" class="btn btn-primary">Сохранить</button>
+    {{ form.date }}
+    <div class="text-center mb-5">
+        <!--div class="text-center mb-5">
+            <input type="text" name="validation-code" id="validation-code" class="form-control w-25 m-auto text-center"
+                placeholder="Введите код">
+            </textarea>
+        </div-->
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
 </form>
 
 {% endblock content %}
