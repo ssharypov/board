@@ -1,6 +1,13 @@
 from django.contrib import admin
-from .models import Orders
+from . import models
+
+
+class OrdersAdmin(admin.ModelAdmin):
+    list_display = ["pk", "order_description"]
+    list_editable = ["order_description"]
+
 
 # Register your models here.
 
-admin.site.register(Orders)
+
+admin.site.register(models.Orders, OrdersAdmin)

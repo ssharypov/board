@@ -1,5 +1,7 @@
 {% extends "_layout.html" %}
-
+{% block header_scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+{% endblock header_scripts %}
 {% block title %}
 Разместить объявление о поиске исполнителя
 {% endblock title %}
@@ -31,8 +33,64 @@
                 placeholder="Введите код">
             </textarea>
         </div-->
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        {% if error %}
+        <span>{{ error }}</span>
+        {% endif %}
+        <div id="submit_block">
+            <input id="verifier" type="text" placeholder="Введит одноразовый код"
+                class="form-control w-25 m-auto text-center mb-3">
+            </input>
+        </div>
+        <span id="invalid_code" class="link-danger"></span>
     </div>
 </form>
 
 {% endblock content %}
+
+{% block scripts %}
+<script>
+    $('input#verifier').on('propertychange input', function (e) {
+        var valueChanged = false;
+        if (e.type == 'propertychange') {
+            valueChanged = e.originalEvent.propertyName == 'value';
+        }
+        else {
+            valueChanged = true;
+        }
+        if (valueChanged) {
+            value = $('input#verifier').val()
+            console.log(value)
+            if (value.length == 5) {
+                $.ajax({
+                    'type': 'POST',
+                    'url': 'check_code',
+                    'data': {
+                        'code': value,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    // 'dataType': 'json',
+                    success: function (response) {
+                        resp = JSON.parse(response);
+                        result = resp.result
+                        console.log("RESULT MUST BE HERE")
+                        console.log(result)
+                        if (result === "true") {
+                            console.log(result)
+                            document.getElementById('submit_block').innerHTML = '<input id="submit" type="submit" class="btn btn-primary"></input>'
+                        } else {
+                            console.log(result)
+                            document.getElementById('invalid_code').innerHTML = "Введенный код неверен"
+                        }
+                    },
+                    error: function (response) {
+                        console.log("ERROR")
+                        result = jQuery.parseJSON(response);
+                        console.log(response)
+                        document.getElementById('invalid_code').innerHTML = "Введенный код неверен"
+                    },
+                });
+            }
+        }
+    });
+</script>
+{% endblock scripts %}

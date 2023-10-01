@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AppBotConfig(AppConfig):
+class BotConnectorAppConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "app_bot"
+    name = "bot_connector_app"

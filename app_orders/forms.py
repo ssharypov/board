@@ -16,7 +16,7 @@ class OrdersForm(ModelForm):
                     "class": "form-control",
                     "placeholder": "Чтобы подать заявку выполните первый шаг.",
                     "rows": "5",
-                }
+                },
             ),
             "date": HiddenInput(
                 attrs={

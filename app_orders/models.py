@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Orders(models.Model):
-    order_description = models.TextField("Текст заявки")
+    order_description = models.TextField("Текст заявки", blank=False)
     date = models.DateField("Дата публикации")
 
     def __str__(self):
