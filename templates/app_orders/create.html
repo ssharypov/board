@@ -27,6 +27,7 @@
         {{ form.order_description }}
     </div>
     {{ form.date }}
+    <h6>Шаг 3: Перейдите в бота и запросите код.</h6>
     <div class="text-center mb-5">
         <!--div class="text-center mb-5">
             <input type="text" name="validation-code" id="validation-code" class="form-control w-25 m-auto text-center"
@@ -59,8 +60,8 @@
         }
         if (valueChanged) {
             value = $('input#verifier').val()
-            console.log(value)
             if (value.length == 5) {
+                document.getElementById('submit_block').innerHTML = '<div class="spinner-border ml-auto" role="status" aria-hidden="true">'
                 $.ajax({
                     'type': 'POST',
                     'url': 'check_code',
@@ -68,24 +69,18 @@
                         'code': value,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
-                    // 'dataType': 'json',
                     success: function (response) {
                         resp = JSON.parse(response);
                         result = resp.result
-                        console.log("RESULT MUST BE HERE")
-                        console.log(result)
                         if (result === "true") {
-                            console.log(result)
-                            document.getElementById('submit_block').innerHTML = '<input id="submit" type="submit" class="btn btn-primary"></input>'
+                            document.getElementById('submit_block').innerHTML = '<input id="submit" type="submit" class="btn btn-primary" value="Подать объявление"></input>'
+                            document.getElementById('invalid_code').innerHTML = ""
                         } else {
-                            console.log(result)
                             document.getElementById('invalid_code').innerHTML = "Введенный код неверен"
                         }
                     },
                     error: function (response) {
-                        console.log("ERROR")
                         result = jQuery.parseJSON(response);
-                        console.log(response)
                         document.getElementById('invalid_code').innerHTML = "Введенный код неверен"
                     },
                 });

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Orders
 from .forms import OrdersForm
+import time
 
 
 # Create your views here.
@@ -43,6 +44,7 @@ def check_code(request):
     if request.method == "POST":
         code = request.POST.get("code")
         print(code)
+        time.sleep(3)
         if code == "12346":
             return HttpResponse('{"result": "true"}')
         else:
