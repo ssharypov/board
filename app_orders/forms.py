@@ -14,8 +14,9 @@ class OrdersForm(ModelForm):
             "order_description": Textarea(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "Чтобы подать заявку выполните первый шаг.",
+                    "placeholder": "Постарайтесь максимально подробно описать требования и условия работы.",
                     "rows": "5",
+                    "minlength": "50",
                 },
             ),
             "date": HiddenInput(

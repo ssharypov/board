@@ -1,6 +1,8 @@
 {% extends "_layout.html" %}
+{% load static %}
 {% block header_scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'app_orders/css/css.css' %}">
 {% endblock header_scripts %}
 {% block title %}
 Разместить объявление о поиске исполнителя
@@ -11,8 +13,9 @@
 <h6 class="mt-4">Шаг 1: Подпишитесь на нашего Телеграм-бота</h6>
 
 <p>
-    Подпишитесь на нашего бота Телеграм-бота, чтобы получать сообщения, если с вами захочет связаться исполнитель. <a
-        href="#" class="alert-link">Ссылка на бота >></a>
+    Подпишитесь на нашего Телеграм-бота, чтобы запросить проверочный код и получать сообщения, если с вами захочет
+    связаться исполнитель.
+    <a href="#" class="alert-link">Ссылка на бота >></a>
 </p>
 
 <p>
@@ -21,24 +24,31 @@
 
 <h6>Шаг 2: Максимально опишите ваши пожелания.</h6>
 
+<div id="spinner-div">
+    <div class="h-100 d-flex justify-content-center align-items-center">
+        <div class="bg-primary badge p-3">
+            Проверка кода...<br><br>
+            <div class="spinner-border" role="status"></div>
+        </div>
+
+    </div>
+
+
+</div>
 <form class="mt-3" method="post">
     {% csrf_token %}
     <div class="mb-3">
         {{ form.order_description }}
     </div>
+    <div class="text-end"><span id="chars_counter">0</span> из 50 символов</div>
     {{ form.date }}
     <h6>Шаг 3: Перейдите в бота и запросите код.</h6>
     <div class="text-center mb-5">
-        <!--div class="text-center mb-5">
-            <input type="text" name="validation-code" id="validation-code" class="form-control w-25 m-auto text-center"
-                placeholder="Введите код">
-            </textarea>
-        </div-->
         {% if error %}
         <span>{{ error }}</span>
         {% endif %}
         <div id="submit_block">
-            <input id="verifier" type="text" placeholder="Введит одноразовый код"
+            <input id="verifier" type="text" placeholder="Введите код"
                 class="form-control w-25 m-auto text-center mb-3">
             </input>
         </div>
@@ -50,7 +60,7 @@
 
 {% block scripts %}
 <script>
-    $('input#verifier').on('propertychange input', function (e) {
+    $('#verifier').on('propertychange input', function (e) {
         var valueChanged = false;
         if (e.type == 'propertychange') {
             valueChanged = e.originalEvent.propertyName == 'value';
@@ -59,9 +69,9 @@
             valueChanged = true;
         }
         if (valueChanged) {
-            value = $('input#verifier').val()
+            value = $('#verifier').val()
             if (value.length == 5) {
-                document.getElementById('submit_block').innerHTML = '<div class="spinner-border ml-auto" role="status" aria-hidden="true">'
+                $('#spinner-div').show();
                 $.ajax({
                     'type': 'POST',
                     'url': 'check_code',
@@ -79,12 +89,32 @@
                             document.getElementById('invalid_code').innerHTML = "Введенный код неверен"
                         }
                     },
+                    complete: function () {
+                        $('#spinner-div').hide();
+                    },
                     error: function (response) {
                         result = jQuery.parseJSON(response);
                         document.getElementById('invalid_code').innerHTML = "Введенный код неверен"
                     },
                 });
             }
+        }
+    });
+    $('textarea').ready(function (e) {
+        value = $('textarea').val()
+        document.getElementById('chars_counter').innerHTML = value.length
+    });
+    $('textarea').on('propertychange input', function (e) {
+        var valueChanged = false;
+        if (e.type == 'propertychange') {
+            valueChanged = e.originalEvent.propertyName == 'value';
+        }
+        else {
+            valueChanged = true;
+        }
+        if (valueChanged) {
+            value = $('textarea').val()
+            document.getElementById('chars_counter').innerHTML = value.length
         }
     });
 </script>

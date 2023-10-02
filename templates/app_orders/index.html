@@ -7,13 +7,16 @@
 {% block content %}
 
 
-<p>Список заказов</p>
-{% if orders %}
-{% for order in orders %}
-<p>
-    {{ order.date}} <br>
-    {{ order.order_description }}
-</p>
+<h4>Только актуальные объявления</h4>
+{% if page_obj %}
+{% for order in page_obj %}
+<div class="card mt-3">
+    <h6 class="card-header">{{ order.date}}</h6>
+    <div class="card-body p-2">
+        <div class="card-text pb-3">{{ order.order_description }}</div>
+        <a href="#" class="btn btn-success">Предоставить контакт</a>
+    </div>
+</div>
 {% endfor %}
 {% else %}
 <p>
@@ -22,6 +25,31 @@
     Подпишитесь на нашего бота и как только новое объявление будет подано вы сразу
     об этом узнаете!
 </p>
+{% endif %}
+
+{% if page_obj.has_other_pages %}
+<div class="text-center">
+    <div class="btn-group pt-3" role="group">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-success">&laquo;</a>
+        {% endif %}
+        {% for page_number in page_obj.paginator.page_range %}
+        {% if page_obj.number == page_number %}
+        <button class="btn btn-outline-success active">
+            <span>{{ page_number }} <span class="sr-only"></span></span>
+        </button>
+        {% elif page_number >= page_obj.number|add:-2 and page_number <= page_obj.number|add:2 %} <a
+            href="?page={{ page_number }}" class="btn btn-outline-success">
+            {{ page_number }}
+            </a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-success">&raquo;</a>
+            {% endif %}
+    </div>
+</div>
 {% endif %}
 {# Комментарий к коду #}
 {% endblock content %}
