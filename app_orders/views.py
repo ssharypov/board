@@ -8,8 +8,8 @@ import time
 
 # Create your views here.
 def index(request):
-    orders = Orders.objects.order_by("-id")
-    paginator = Paginator(orders, 1)
+    orders = Orders.objects.filter(approved=True).order_by("-id")
+    paginator = Paginator(orders, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(
@@ -26,7 +26,7 @@ def create(request):
     error = ""
     if request.method == "POST":
         form = OrdersForm(request.POST)
-        if form.is_valid() and (len(request.POST.get("order_description")) > 99):
+        if form.is_valid() and (len(request.POST.get("order_description")) > 49):
             form.save()
             return redirect("/")
         else:

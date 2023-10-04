@@ -4,8 +4,19 @@ from django.db import models
 
 
 class Orders(models.Model):
-    order_description = models.TextField("Текст заявки", blank=False)
-    date = models.DateField("Дата публикации")
+    order_description = models.TextField(
+        "Текст заявки",
+        blank=False,
+    )
+    date = models.DateField(
+        "Дата публикации",
+    )
+    approved = models.BooleanField(
+        "Подтверждено",
+        default=False,
+        blank=False,
+        null=False,
+    )
 
     def __str__(self):
         return self.order_description

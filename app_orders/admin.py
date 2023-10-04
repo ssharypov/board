@@ -3,8 +3,8 @@ from . import models
 
 
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ["pk", "order_description"]
-    list_editable = ["order_description"]
+    list_display = ["pk", "order_description", "approved"]
+    list_editable = ["order_description", "approved"]
 
 
 # Register your models here.
