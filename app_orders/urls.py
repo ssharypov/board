@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     path("", views.index),
+    path("/<int:order_id>", views.order_detail),
     path("/new", views.create),
     path("/check_code", views.check_code),
 ]

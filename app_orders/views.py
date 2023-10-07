@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Orders
 from .forms import OrdersForm
+from pprint import pprint
 import time
 
 
@@ -18,6 +19,19 @@ def index(request):
         {
             # "orders": orders,
             "page_obj": page_obj,
+        },
+    )
+
+
+def order_detail(request, order_id):
+    orders = Orders.objects.filter(pk=order_id, approved=True)
+    order = orders.first()
+    pprint(locals())
+    return render(
+        request,
+        "app_orders/order_details.html",
+        {
+            "order_obj": order,
         },
     )
 

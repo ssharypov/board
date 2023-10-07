@@ -1,0 +1,14 @@
+{% extends "_layout.html" %}
+
+{% block title %}
+Заказ от {{ order_obj.date }}
+{% endblock title %}
+
+{% block content %}
+
+<h1>Объявление от {{ order_obj.date }}</h1>
+
+<p>{{ order_obj.order_description }}</p>
+
+{# Комментарий к коду #}
+{% endblock content %}
