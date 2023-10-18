@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "main_page",
     "app_specialists",
     "app_orders",
-    # "app_bot",
+    "app_api",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [

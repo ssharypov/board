@@ -13,14 +13,21 @@ def index(request):
     paginator = Paginator(orders, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(
-        request,
-        "app_orders/index.html",
-        {
-            # "orders": orders,
-            "page_obj": page_obj,
-        },
-    )
+    # pprint(request.COOKIES)
+    try:
+        x = request.COOKIES["test"]
+        
+    finally:
+        r = render(
+            request,
+            "app_orders/index.html",
+            {
+                # "orders": orders,
+                "page_obj": page_obj,
+            },
+        )
+        r.set_cookie(key = "testKey", value="testValue")
+        return r
 
 
 def order_detail(request, order_id):
